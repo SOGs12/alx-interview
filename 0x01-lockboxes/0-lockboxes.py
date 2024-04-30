@@ -1,17 +1,32 @@
 #!/usr/bin/python3
-"""Defines a function that determines if a box containing a list
-   of lists can be opened using keys
-"""
+'''LockBoxes Challenge'''
+
 
 def canUnlockAll(boxes):
-    """return trure if all boxes unlocked"""
-    unlocked_boxes = [0]  # Box 0 is already unlocked
-    keys = list(boxes[0])  # Start with keys from Box 0  like [1, 2, 4]
+    '''determines if all the boxes can be opened or not
+    Returns:
+        True: all boxes can be opened
+        False: not all boxes can be opened
+    '''
+    length = len(boxes)
+    keys = set()
+    opened_boxes = []
+    i = 0
 
-    while keys:
-        key = keys.pop() # pop a key and try it
-        if key < len(boxes) and key not in unlocked_boxes:
-            unlocked_boxes.append(key)
-            keys.extend(boxes[key])  #newly opened box keys
+    while i < length:
+        oldi = i
+        opened_boxes.append(i)
+        keys.update(boxes[i])
+        for key in keys:
+            if key != 0 and key < length and key not in opened_boxes:
+                i = key
+                break
+        if oldi != i:
+            continue
+        else:
+            break
 
-    return len(unlocked_boxes) == len(boxes)
+    for i in range(length):
+        if i not in opened_boxes and i != 0:
+            return False
+    return True
