@@ -1,19 +1,18 @@
 #!/usr/bin/python3
-"""
-This is the module that contains the rotate_2d_matrix function definition
-"""
-
-
-def rotate_2d_matrix(matrix: list[list, ...]) -> None:
+def rotate_2d_matrix(matrix):
     """
-    This function rotates a matrix
-    :param matrix:
-    :return: None
-    """
-    matrix_form_holder = [x.copy() for x in matrix]
-    matrix_len = len(matrix)
+    Rotates an n x n 2D matrix by 90 degrees clockwise in place.
 
-    for row in range(matrix_len):
-        for column in range(matrix_len):
-            matrix[row][column] = \
-                matrix_form_holder[matrix_len - column - 1][row]
+    Args:
+        matrix (list of list of int): The n x n 2D matrix to rotate.
+    """
+    n = len(matrix)
+    
+    # Transpose the matrix
+    for i in range(n):
+        for j in range(i, n):
+            matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
+    
+    # Reverse each row
+    for i in range(n):
+        matrix[i].reverse()
